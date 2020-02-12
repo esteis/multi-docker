@@ -1,0 +1,21 @@
+sudo: required
+services: 
+    - docker
+
+before_install:
+    - docker build -t esteis/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run -e CI=true esteis/react-test npm test
+
+after_succes:
+    - docker build -t esteis/multi-client ./client
+    - docker build -t esteis/multi-nginx ./nginx
+    - docker build -t esteis/multi-server ./server
+    - docker build -t esteis/multi-worker ./worker
+    #Log in to docker-cli
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    - docker push esteis/multi-client
+    - docker push esteis/multi-nginx
+    - docker push esteis/multi-server
+    - docker push esteis/multi-worker
