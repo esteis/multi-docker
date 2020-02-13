@@ -5,6 +5,7 @@
             "name": "client",
             "image": "esteis/multi-client",
             "hostname": "client",
+            "memory": 128,
             "essential": false
         },
         {
@@ -12,6 +13,7 @@
             "image": "esteis/multi-nginx",
             "hostname": "nginx",
             "essential": true,
+            "memory": 128,
             "portmappings": [
                 {
                     "hostport": 80,
@@ -24,12 +26,14 @@
             "name": "server",
             "image": "esteis/multi-server",
             "hostname": "api",
+            "memory": 128,
             "essential": false
         },
         {
             "name": "worker",
             "image": "esteis/multi-worker",
             "hostname": "worker",
+            "memory": 128,
             "essential": false
         }
     ]
